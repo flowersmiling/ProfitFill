@@ -6,8 +6,11 @@ This assignment task realize a simple job management function. User can retrieve
 - Front-end: React, Vite, TypeScript
 - Back-end: Node.js, Express.js, TypeScript
 
-# Clone or Download
+# Clone From GitHub
 
+```terminal
+$ git clone https://github.com/flowersmiling/ProfitFill.git
+```
 
 # Getting started
 
@@ -83,5 +86,11 @@ Client-side | Server-side
 - Simplified styling and ensured a modern appearance.
 
 # Snapshot
+![image](https://github.com/flowersmiling/ProfitFill/assets/37680291/7cb17543-198b-4c07-9079-eb622d3e2610)
 
+
+![image](https://github.com/flowersmiling/ProfitFill/assets/37680291/c457a017-9db9-48a5-b78d-40d293b3c437)
+
+
+![image](https://github.com/flowersmiling/ProfitFill/assets/37680291/eefd3623-c886-41cc-9f20-2773196964ce)
 
