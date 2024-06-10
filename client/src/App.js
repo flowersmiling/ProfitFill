@@ -1,0 +1,36 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useEffect, useState } from 'react';
+import Card from './components/Card';
+import { Link } from 'react-router-dom';
+const App = () => {
+    const apiURL = `http://localhost:5001`;
+    const [jobs, setJobs] = useState([]);
+    const [jobDetails, setJobDetails] = useState(null);
+    useEffect(() => {
+        fetch(`${apiURL}/jobs`)
+            .then((result) => result.json())
+            .then((result) => setJobs(result ? result : []))
+            .catch((error) => console.error('Error fetching jobs:', error));
+    }, []);
+    const handleJobClick = (jobId) => {
+        setJobDetails(jobs.find(job => job.id === jobId));
+        // Fetch job details from the backend
+        // fetch(`${apiURL}/jobs/${jobId}`)
+        //   .then(response => response.json())
+        //   .then(response => {
+        //     setJobDetails(response);
+        //   })
+        //   .catch(error => console.error('Error fetching job details:', error));
+    };
+    const handleDeleteJob = (jobId) => {
+        // Delete a job from the backend
+        fetch(`${apiURL}/jobs/${jobId}`, { method: 'DELETE' })
+            .then(response => {
+            // Update jobs list after deleting a job
+            setJobs(jobs.filter(job => job.id !== jobId));
+        })
+            .catch(error => console.error('Error deleting job:', error));
+    };
+    return (_jsx("div", { className: "max-w-7xl mx-auto sm:px-6 lg:px-8", children: _jsxs("div", { className: "bg-white overflow-hidden shadow-sm sm:rounded-lg", children: [_jsxs("div", { className: "p-6 bg-white border-b border-gray-200", children: [_jsx("h1", { className: "text-center text-xl font-bold text-gray-900 mb-2", children: "Job Management Dashboard" }), _jsx("ul", { className: "list-disc pl-4", children: jobs.map(job => (_jsx("li", { className: "border-b border-gray-200", children: _jsxs("a", { href: '#', onClick: () => handleJobClick(job.id), className: "font-medium text-blue-600 dark:text-blue-500 hover:underline", children: [_jsx("span", { children: job.jobType }), " - ", job.status, " - ", job.appointmentDate.substring(0, 16)] }) }, job.id))) }), jobDetails && (_jsxs("div", { className: "card shadow-lg rounded-lg p-4 bg-white", children: [_jsx("h2", { children: "Job Details" }), _jsx(Card, { card: jobDetails })] }))] }), _jsx("div", { className: "flex", children: _jsx(Link, { to: "/add-job", className: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700", children: "Add Job" }) })] }) }));
+};
+export default App;

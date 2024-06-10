@@ -1,0 +1,110 @@
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import fs from 'fs/promises';
+import { v4 as uuidv4 } from 'uuid';
+
+const app = express();
+const port = 5001;
+const corsOptions = {
+  origin: '*',
+  Credentials: true,
+  optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// Define the job model
+interface Job {
+  id: string;
+  customerName: string;
+  jobType: string;
+  status: string;
+  appointmentDate: string;
+  technician: string;
+}
+
+// In-memory array to store jobs
+let jobs: Job[] = [];
+
+// Read job data from the JSON file
+async function readJobsFromFile() {
+  try {
+      const data = await fs.readFile('src/jobs.json', 'utf-8');
+      return JSON.parse(data);
+  } catch (error: any) {
+      console.error('Error reading jobs data:', error.message);
+      return []; // Return an empty array if reading fails
+  }
+}
+
+// Function to write jobs to a JSON file
+async function writeJobsToFile(jobsData: Job[]): Promise<void> {
+  try {
+    await fs.writeFile('src/jobs.json', JSON.stringify(jobsData, null, 2));
+  } catch (error) {
+    console.error('Error writing jobs file:', error);
+  }
+}
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+// Get all jobs
+app.get('/jobs', async (req, res) => {
+  const allJobs = await readJobsFromFile();
+  jobs = allJobs;
+  res.json(allJobs);
+});
+
+// GET /jobs/:id
+app.get('/jobs/:id', async (req: Request, res: Response) => {
+  const jobId = req.params.id;
+  const job = jobs.find(job => job.id.toString() === jobId);
+  if (job) {
+    res.json(job);
+  } else {
+    res.status(404).send('Job not found');
+  }
+});
+
+// POST /jobs
+app.post('/jobs', async (req: Request, res: Response) => {
+  const newJob: Job = req.body;
+  newJob.id = uuidv4();
+  jobs.push(newJob);
+  await writeJobsToFile(jobs);
+  res.status(201).json(newJob);
+});
+
+// PUT /jobs/:id
+app.put('/jobs/:id', async (req: Request, res: Response) => {
+  const jobId = req.params.id;
+  const index = jobs.findIndex(job => job.id === jobId);
+  if (index !== -1) {
+    const updatedJob = { ...jobs[index], ...req.body };
+    jobs[index] = updatedJob;
+    await writeJobsToFile(jobs);
+    res.json(updatedJob);
+  } else {
+    res.status(404).send('Job not found');
+  }
+});
+
+// DELETE /jobs/:id
+app.delete('/jobs/:id', async (req: Request, res: Response) => {
+  const jobId = req.params.id;
+  const index = jobs.findIndex(job => job.id.toString() === jobId);
+  if (index !== -1) {
+    jobs.splice(index, 1);
+    await writeJobsToFile(jobs);
+    res.status(204).send();
+  } else {
+    res.status(404).send('Job not found');
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
