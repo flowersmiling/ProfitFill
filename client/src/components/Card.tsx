@@ -1,20 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Card = ({ card }:any) => {
     const apiURL = `http://localhost:5001`;
     const [jobData, setJobData] = useState({
-        customerName: card.customerName,
-        jobType: card.jobType,
-        status: card.status,
-        appointmentDate: card.appointmentDate,
-        technician: card.technician
+      id: '',
+      customerName: '',
+      jobType: '',
+      status: '',
+      appointmentDate: '',
+      technician: ''
     });
+    const [selectedDate, setSelectedDate] = useState(new Date(card.appointmentDate));
+
+    // initialize the job data
+    useEffect(() => {
+      setJobData(card), 
+      setSelectedDate(new Date(card.appointmentDate))
+    }, [card]);
 
     const handleInputChange = (event) => {
       const { name, value } = event.target;
       setJobData({ ...jobData, [name]: value});
+    };
+
+    const handleDateChange = (date) => {
+      // Update the selected date when the user modifies it
+      setSelectedDate(date);
+      // Update the job data with the new date
+      setJobData({ ...jobData, appointmentDate: date.toISOString() })
     };
 
     const handleSubmit = () => {
@@ -23,9 +38,10 @@ const Card = ({ card }:any) => {
         .then(response => response.json())
         .then(response => {
           // Update jobs list after updating a job
-          setJobData(response);
+          setJobData({...response});
         })
         .catch(error => console.error('Error updating job:', error));
+      console.log(jobData);
       window.location.href="/";
     };
 
@@ -75,10 +91,10 @@ const Card = ({ card }:any) => {
             <option value="Scheduled">Scheduled</option>
             <option value="Pengding">Pengding</option>
         </select>
-        <label htmlFor="appointmentDate" className="font-bold text-gray-600">AppointmentDate: {card.appointmentDate.substring(0, 16)}</label>
+        <label htmlFor="appointmentDate" className="font-bold text-gray-600">AppointmentDate:</label><p></p>
         <DatePicker
-          selected={card.appointmentDate ? new Date(card.appointmentDate) : null}
-          onChange={(date) => setJobData({ ...jobData, appointmentDate: date.toISOString() })}
+          value={selectedDate.toISOString().split('T')[0]}
+          onChange={handleDateChange}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         /><p></p>
         <label htmlFor="technician" className="font-bold text-gray-600">Technician:</label>

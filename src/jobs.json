@@ -1,34 +1,26 @@
 [
   {
     "customerName": "Mark Phan",
-    "jobType": "Plumbing",
+    "jobType": "Boiler",
     "status": "Completed",
-    "appointmentDate": "2024-06-02T06:00:00.000Z",
+    "appointmentDate": "2024-06-14T06:00:00.000Z",
     "technician": "Ben Marsica",
-    "id": "e5141b97-58b4-4feb-b7e8-ba979309be6b"
+    "id": "4aea42c7-2ebc-431e-90e4-981bc64af25f"
   },
   {
     "customerName": "Genes Smith",
-    "jobType": "Electrical",
-    "status": "Scheduled",
-    "appointmentDate": "2024-06-01T06:00:00.000Z",
+    "jobType": "Plumbing",
+    "status": "Completed",
+    "appointmentDate": "2024-06-13T06:00:00.000Z",
     "technician": "Bob Brown",
-    "id": "4aea42c7-2ebc-431e-90e4-981bc64af25f"
+    "id": "60fd1ad0-5739-42b7-98f9-70fc2368a8c4"
   },
   {
     "customerName": "Alice Johnson",
     "jobType": "Housing",
     "status": "Scheduled",
-    "appointmentDate": "2024-06-27T06:00:00.000Z",
+    "appointmentDate": "2024-07-01T06:00:00.000Z",
     "technician": "Johsan Rafhan",
-    "id": "60fd1ad0-5739-42b7-98f9-70fc2368a8c4"
-  },
-  {
-    "customerName": "Chaoling Lu",
-    "jobType": "Boiler",
-    "status": "Pengding",
-    "appointmentDate": "2024-06-17T06:00:00.000Z",
-    "technician": "Sarah Phan",
     "id": "f9c64b29-510e-4fcf-a027-53fbae1d1245"
   }
 ]

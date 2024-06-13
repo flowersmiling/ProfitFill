@@ -25,16 +25,6 @@ const App = () => {
     //   .catch(error => console.error('Error fetching job details:', error));
   };
 
-  const handleDeleteJob = (jobId) => {
-    // Delete a job from the backend
-    fetch(`${apiURL}/jobs/${jobId}`, {method: 'DELETE'})
-      .then(response => {
-        // Update jobs list after deleting a job
-        setJobs(jobs.filter(job => job.id !== jobId));
-      })
-      .catch(error => console.error('Error deleting job:', error));
-  };
-
   return (
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -43,7 +33,7 @@ const App = () => {
             <ul className="list-disc pl-4">
               {jobs.map(job => (
                 <li key={job.id} className="border-b border-gray-200">
-                  <a href='#' onClick={() => handleJobClick(job.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span>{job.jobType}</span> - {job.status} - {job.appointmentDate.substring(0, 16)}</a>
+                  <a href='#' onClick={() => handleJobClick(job.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span>{job.jobType}</span> - {job.status} - {job.appointmentDate.substring(0, 10)}</a>
                 </li>
               ))}
             </ul>
