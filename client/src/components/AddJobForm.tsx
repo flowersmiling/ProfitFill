@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AddJobForm = () => {
-    const apiURL = `http://localhost:5001`;
+    const apiURL = import.meta.env.VITE_API_URL+':'+import.meta.env.VITE_PORT;
     const [jobData, setJobData] = useState({
         customerName: '',
         jobType: '',

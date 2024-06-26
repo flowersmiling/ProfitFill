@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import Card from './components/Card'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const App = () => {
-  const apiURL = `http://localhost:5001`;
+  const apiURL = import.meta.env.VITE_API_URL+':'+import.meta.env.VITE_PORT;
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState(null);
+
+  console.log(apiURL);
 
   useEffect(() =>{
     fetch(`${apiURL}/jobs`)

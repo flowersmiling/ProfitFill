@@ -4,7 +4,8 @@ import fs from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
-const port = 5001;
+const url = process.env.PUBLIC_API_URL;
+const port = process.env.PORT;
 const corsOptions = {
   origin: '*',
   Credentials: true,
@@ -106,5 +107,5 @@ app.delete('/jobs/:id', async (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${url}:${port}`);
 });

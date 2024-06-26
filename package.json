@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --exec node --loader ts-node/esm src/app.ts",
+    "build": "npx tsc",
+    "start": "nodemon --exec node --loader ts-node/esm --env-file=.env src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
