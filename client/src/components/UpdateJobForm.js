@@ -3,7 +3,6 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 const UpdateJobForm = ({ card }) => {
-    const apiURL = `http://localhost:5001`;
     const [jobData, setJobData] = useState({
         customerName: '',
         jobType: '',

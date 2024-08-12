@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 const Card = ({ card }) => {
-    const apiURL = import.meta.env.VITE_API_URL + ':' + import.meta.env.VITE_PORT;
+    // const apiURL = import.meta.env.VITE_API_URL+':'+import.meta.env.VITE_PORT;
+    const apiURL = import.meta.env.VITE_API_URL;
     const [jobData, setJobData] = useState({
         id: '',
         customerName: '',

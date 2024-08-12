@@ -3,7 +3,8 @@ import Card from './components/Card'
 import { Link } from 'react-router-dom'
 
 const App = () => {
-  const apiURL = import.meta.env.VITE_API_URL+':'+import.meta.env.VITE_PORT;
+  // const apiURL = import.meta.env.VITE_API_URL+':'+import.meta.env.VITE_PORT;
+  const apiURL = import.meta.env.VITE_API_URL
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState(null);
 
